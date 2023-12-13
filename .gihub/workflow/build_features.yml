@@ -1,0 +1,58 @@
+name: Merge Workflow
+on:
+  pull_request:
+    branch: [main]
+    types: [opened, reopened]
+jobs:
+  build-feature:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles( '**/pom.xml' ) }}
+          restore-keys: ${{runner.os}}-maven
+
+      - name: MVN Compile
+        run: |
+          mvn clean compile
+
+  merge-feature-into-main:
+    runs-on: ubuntu-latest
+    needs: build-feature
+    if: ${{ success() }}
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{github.base_url}}
+          fetch-depth: 0
+      - name: Merge to Main
+        if: ${{ success() }}
+        run: |
+          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
+          git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
+          git merge --no-ff -verbose origin/${{ gihub.event.pull_request.head.ref }} -m 'Merge pull request #${{gihub.event.number}}'
+
+
+      - name: Push changes after merge
+        if: ${{success()}}
+        uses: ad-m/github-push-action@master
+        with: 
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          branch: ${{github.base_url}}
+          
