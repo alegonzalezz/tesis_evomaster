@@ -42,13 +42,27 @@ jobs:
           ref: ${{github.base_url}}
           fetch-depth: 0
 
+      - name: Run EM Driver
+        if: ${{ success() }}
+        run: mvn test -Dtest=EMDriver
 
+
+      - name: Run evomaster
+        if: ${{ success() }}
+        run: java jar .\evomaster.jar --maxTime 20s --outputFolder src\test\java
+      
+      
       - name: Merge to Main
         if: ${{ success() }}
 
         run: |
           git config --global user.name "${{ secrets.GIT_USER_NAME }}"
           git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
+          
+          git add .
+          git commit -m "Committing evomaster tests"
+          git fetch origin ${{ github.event.pull_request.head.ref }}:${{ github.event.pull_request.head.ref }}
+         
           git merge --no-ff --verbose origin/${{ github.event.pull_request.head.ref }} -m 'Merge pull request -${{github.event.number}}'
 
 
