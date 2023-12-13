@@ -65,10 +65,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.6</version>
-                <inherited>true</inherited>
+                <version>3.8.1</version>
                 <configuration>
-                    <release>1.8</release>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
