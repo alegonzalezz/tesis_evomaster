@@ -46,7 +46,7 @@ jobs:
         run:
           git config --global user.name "${{ secrets.GIT_USER_NAME }}"
           git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
-          git merge --no-ff -verbose origin/${{ gihub.event.pull_request.head.ref }} -m 'Merge pull request #${{gihub.event.number}}'
+          git merge --no-ff -verbose origin/${{ github.event.pull_request.head.ref }} -m 'Merge pull request #${{gihub.event.number}}'
 
 
       - name: Push changes after merge
