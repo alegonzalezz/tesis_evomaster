@@ -45,7 +45,7 @@ jobs:
       - name: Run EM Driver
         if: ${{ success() }}
         run: |
-          javac .\src\test\java\org\example\EMDriver.java
+          javac .\src/test/java/org/example/EMDriver.java
           java EMDriver
 
 
