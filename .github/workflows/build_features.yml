@@ -43,7 +43,7 @@ jobs:
           fetch-depth: 0
       - name: Merge to Main
         if: ${{ success() }}
-        run: |
+        run: 
           git config --global user.name "${{ secrets.GIT_USER_NAME }}"
           git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
           git merge --no-ff -verbose origin/${{ gihub.event.pull_request.head.ref }} -m 'Merge pull request #${{gihub.event.number}}'
