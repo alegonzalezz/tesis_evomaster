@@ -44,7 +44,9 @@ jobs:
 
       - name: Run EM Driver
         if: ${{ success() }}
-        run: mvn test -Dtest=EMDriver
+        run: |
+          javac Main.java
+          java Main
 
 
       - name: Run evomaster
