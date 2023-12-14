@@ -44,7 +44,7 @@ jobs:
 
       - name: Run EM Driver
         if: ${{ success() }}
-        run: mvn clean compile exec:java -Dexec.mainClass="org.example.EMDriver"
+        run: java -cp target/test-classes org.example.EMDriver
 
       - name: Run evomaster
         if: ${{ success() }}
