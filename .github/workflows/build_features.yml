@@ -46,11 +46,11 @@ jobs:
         run: mvn install
 
       - name: LS TARGET
-        run: ls -R   
+        run: ls -R   ./target/test-classes/org/example
 
       - name: Run EM Driver
         if: ${{ success() }}
-        run: java -cp ./target/test-classes/org/example EMDriver
+        run: java -cp ./target/test-classes/org/example EMDriver.class
 
       - name: Run evomaster
         if: ${{ success() }}

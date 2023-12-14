@@ -68,6 +68,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <mainClass>org.example.EMDriver</mainClass>
                 </configuration>
             </plugin>
         </plugins>
