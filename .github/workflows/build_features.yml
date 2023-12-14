@@ -43,7 +43,7 @@ jobs:
           fetch-depth: 0
 
       - name: LS TARGET
-        run: ls -R ./target/test-classes/org/example    
+        run: ls -R   
 
       - name: Run EM Driver
         if: ${{ success() }}
