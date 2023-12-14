@@ -1,4 +1,4 @@
-package org.example;
+package org.evomaster;
 
 import org.evomaster.client.java.controller.EmbeddedSutController;
 import org.evomaster.client.java.controller.InstrumentedSutStarter;
@@ -24,6 +24,7 @@ public class EMDriver extends EmbeddedSutController {
     public static void main(String[] args){
 
         SutController controller = new EMDriver();
+        System.out.println("Pasamos por aca");
         InstrumentedSutStarter starter = new InstrumentedSutStarter(controller);
 
         starter.start();
