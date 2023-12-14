@@ -47,7 +47,7 @@ jobs:
 
       - name: Run EM Driver
         if: ${{ success() }}
-        run: exec:java
+        run: mvn exec:java
 
       - name: Run evomaster
         if: ${{ success() }}
