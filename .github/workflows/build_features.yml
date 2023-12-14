@@ -42,11 +42,12 @@ jobs:
           ref: ${{github.base_url}}
           fetch-depth: 0
 
+      - name: LS TARGET
+        run: ls -R target/test-classes/org/example    
+
       - name: Run EM Driver
         if: ${{ success() }}
-        run: |
-          mvn clean install
-          java -cp target/test-classes/org/example EMDriver
+        run: java -cp target/test-classes/org/example EMDriver
 
       - name: Run evomaster
         if: ${{ success() }}
