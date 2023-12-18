@@ -12,11 +12,11 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.sha}}
 
-      - name: Set up JDK 8
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '8'
+          java-version: '17'
 
       - name: Cache Maven dependencies
         uses: actions/cache@v2
@@ -41,13 +41,11 @@ jobs:
         with:
           ref: ${{github.base_url}}
           fetch-depth: 0
-
-      - name: MVN
-        run: mvn install
-
-      - name: Run EM Driver
-        if: ${{ success() }}
-        run: mvn exec:java
+         
+      - name: Build and test with JavaAgent
+        run: |
+          mvn clean install
+          mvn exec:java -Dexec.args="-javaagent:./evomaster.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Djdk.attach.allowAttachSelf=true"  
 
       - name: Run evomaster
         if: ${{ success() }}
