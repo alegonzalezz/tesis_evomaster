@@ -1,4 +1,4 @@
-package org.example;
+package org.evomaster;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
