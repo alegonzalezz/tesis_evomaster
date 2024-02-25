@@ -44,6 +44,11 @@ jobs:
       - name: Set JDK_JAVA_OPTIONS
         run: echo "export JDK_JAVA_OPTIONS=\"-Djdk.attach.allowAttachSelf=true\"" >> $GITHUB_ENV
         
+      - name: VERSIONS
+        run: |
+          echo "java -version"
+          echo "mvn -v" 
+          
       - name: Build and test with JavaAgent
         run: mvn clean compile exec:exec -X
 
