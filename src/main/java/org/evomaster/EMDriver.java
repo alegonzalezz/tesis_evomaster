@@ -29,7 +29,7 @@ public class EMDriver extends EmbeddedSutController {
             InstrumentedSutStarter starter = new InstrumentedSutStarter(controller);
             starter.start();
 
-        }catch(Error err){
+        }catch(RuntimeException err){
             System.out.println("EROR");
             System.out.println(err.getMessage());
             System.out.println(err.getStackTrace());
