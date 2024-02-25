@@ -46,8 +46,8 @@ jobs:
         
       - name: VERSIONS
         run: |
-          echo "java -version"
-          echo "mvn -v" 
+          java -version
+          mvn -v 
           
       - name: Build and test with JavaAgent
         run: mvn clean compile exec:exec -X
