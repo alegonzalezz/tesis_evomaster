@@ -43,9 +43,7 @@ jobs:
           fetch-depth: 0
          
       - name: Build and test with JavaAgent
-        run: |
-          mvn clean install
-          mvn exec:java -Dexec.args="-javaagent:./evomaster.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Djdk.attach.allowAttachSelf=true"  
+        run: mvn clean compile exec:exec 
 
       - name: Run evomaster
         if: ${{ success() }}
