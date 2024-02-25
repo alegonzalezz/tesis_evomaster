@@ -41,13 +41,15 @@ jobs:
         with:
           ref: ${{github.base_url}}
           fetch-depth: 0
-         
+      - name: Set JDK_JAVA_OPTIONS
+        run: echo "export JDK_JAVA_OPTIONS=\"-Djdk.attach.allowAttachSelf=true\"" >> $GITHUB_ENV
+        
       - name: Build and test with JavaAgent
         run: mvn clean compile exec:exec -X
 
       - name: Run evomaster
         if: ${{ success() }}
-        run: java jar .\evomaster.jar --maxTime 20s --outputFolder src\test\java
+        run:  java -jar .\evomaster.jar --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60
       
       
       - name: Merge to Main
