@@ -43,7 +43,7 @@ jobs:
           fetch-depth: 0
          
       - name: Build and test with JavaAgent
-        run: mvn clean compile exec:exec 
+        run: mvn clean compile exec:exec -X
 
       - name: Run evomaster
         if: ${{ success() }}
