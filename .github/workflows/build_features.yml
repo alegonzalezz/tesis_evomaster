@@ -73,8 +73,10 @@ jobs:
       - name: permisos evo master
         run: |
           chmod_output=$(chmod +rx .evomaster.jar 2>&1)
-
-          echo "$chmod_output"
+          echo "CHMOD_OUTPUT<<EOF" >> $GITHUB_ENV
+          echo "$chmod_output" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "Resultado de chmod: ${{ env.CHMOD_OUTPUT }}"
 
         
   
