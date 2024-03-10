@@ -63,6 +63,7 @@ jobs:
           java -version
           mvn -v 
           
+      
       - name: permisos evo master
         run: chmod +rx evomaster.jar
 
@@ -73,11 +74,11 @@ jobs:
            PID=$!
 
            sleep 10
-        
+                   
+
       - name: Run evomaster
         if: ${{ success() }}
-        run:  java -jar evomaster.jar
-      
+        run:  java -jar ./evomaster.jar
       
       - name: Merge to Main
         if: ${{ success() }}
