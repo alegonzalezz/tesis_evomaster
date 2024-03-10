@@ -62,6 +62,10 @@ jobs:
           java -version
           mvn -v 
           
+      
+      - name: permisos evo master
+        run: chmod +rx .evomaster.jar
+
       - name: Build and test with JavaAgent
         run: |
            mvn clean compile exec:exec -X &
@@ -69,18 +73,7 @@ jobs:
            PID=$!
 
            sleep 10
-         
-      - name: permisos evo master
-        run: |
-          chmod_output=$(chmod +rx .evomaster.jar 2>&1)
-          echo "CHMOD_OUTPUT<<EOF" >> $GITHUB_ENV
-          echo "$chmod_output" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          echo "Resultado de chmod: ${{ env.CHMOD_OUTPUT }}"
-
         
-  
-
       - name: Run evomaster
         if: ${{ success() }}
         run:  java -jar .\evomaster.jar --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60
