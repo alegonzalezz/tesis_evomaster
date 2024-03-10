@@ -64,11 +64,6 @@ jobs:
           mvn -v 
           
       
-      - name: LSLA
-        run: |
-          pwd
-          ls -la
-
       - name: permisos evo master
         run: chmod +rx evomaster.jar
 
@@ -81,8 +76,7 @@ jobs:
            sleep 10
         
 
-           java -jar ./evomaster.jar --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60
-
+           java -jar evomaster.jar
            
 
       - name: Run evomaster
