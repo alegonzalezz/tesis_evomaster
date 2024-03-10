@@ -71,8 +71,13 @@ jobs:
            sleep 10
          
       - name: permisos evo master
-        run: echo "chmod +rx .evomaster.jar"
+        run: |
+          chmod_output=$(chmod +rx .evomaster.jar 2>&1)
 
+          echo "$chmod_output"
+
+        
+  
 
       - name: Run evomaster
         if: ${{ success() }}
