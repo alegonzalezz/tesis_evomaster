@@ -63,12 +63,6 @@ jobs:
           java -version
           mvn -v 
           
-      
-      - name: LSLA
-        run: |
-          pwd
-          ls -la
-
       - name: permisos evo master
         run: chmod +rx evomaster.jar
 
@@ -82,7 +76,7 @@ jobs:
         
       - name: Run evomaster
         if: ${{ success() }}
-        run:  java -jar ./evomaster.jar --blackBox true --outputFormat JAVA_JUNIT_4 --maxTime 20s --ratePerMinute 60
+        run:  java -jar ./evomaster.jar --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60
       
       
       - name: Merge to Main
