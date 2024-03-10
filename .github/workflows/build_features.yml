@@ -66,21 +66,15 @@ jobs:
         run: |
            mvn clean compile exec:exec -X &
            
-           echo "processIf $PID"
            PID=$!
+
            sleep 10
-
-
-           echo "Run evomaster"
            
 
-           java -jar .\evomaster.jar --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60
-
-           echo "kill processId $PID"
-           kill $PID
-
-
-     
+      - name: Run evomaster
+        if: ${{ success() }}
+        run:  java -jar .\evomaster.jar --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60
+      
       
       - name: Merge to Main
         if: ${{ success() }}
