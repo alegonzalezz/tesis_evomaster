@@ -69,7 +69,10 @@ jobs:
            PID=$!
 
            sleep 10
-           
+         
+      - name: permisos evo master
+        run: echo "chmod +rx .evomaster.jar"
+
 
       - name: Run evomaster
         if: ${{ success() }}
