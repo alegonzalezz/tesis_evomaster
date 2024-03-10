@@ -63,6 +63,9 @@ jobs:
           mvn -v 
           
       
+      - name: LSLA
+        run: ls -la
+
       - name: permisos evo master
         run: chmod +rx .evomaster.jar
 
