@@ -70,7 +70,7 @@ jobs:
           ls -la
 
       - name: permisos evo master
-        run: chmod +rx .evomaster.jar
+        run: chmod +rx evomaster.jar
 
       - name: Build and test with JavaAgent
         run: |
