@@ -14,11 +14,16 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.sha}}
 
+      - uses: actions/checkout@v2
       - name: Set up JDK 1.8
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin' 
           java-version: '8'
+      - name: VERSIONS
+        run: |
+          java -version
+          mvn -v 
 
       - name: Cache Maven dependencies
         uses: actions/cache@v2
@@ -43,15 +48,41 @@ jobs:
         with:
           ref: ${{github.base_url}}
           fetch-depth: 0
-         
+      - name: Set JDK_JAVA_OPTIONS
+        run: echo "export JDK_JAVA_OPTIONS=\"-Djdk.attach.allowAttachSelf=true\"" >> $GITHUB_ENV
+        
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' 
+          java-version: '8'
+
+          
+      - name: VERSIONS
+        run: |
+          java -version
+          mvn -v 
+          
+      
+      - name: LSLA
+        run: |
+          pwd
+          ls -la
+
+      - name: permisos evo master
+        run: chmod +rx evomaster.jar
+
       - name: Build and test with JavaAgent
         run: |
-          mvn clean install
-          mvn exec:java -Dexec.args="-javaagent:./evomaster.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Djdk.attach.allowAttachSelf=true"  
+           mvn clean compile exec:exec -X &
+           
+           PID=$!
 
+           sleep 10
+        
       - name: Run evomaster
         if: ${{ success() }}
-        run: java jar .\evomaster.jar --maxTime 20s --outputFolder src\test\java
+        run:  java -jar ./evomaster.jar --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60
       
       
       - name: Merge to Main

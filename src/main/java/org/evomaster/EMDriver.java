@@ -25,9 +25,17 @@ public class EMDriver extends EmbeddedSutController {
 
         SutController controller = new EMDriver();
         System.out.println("Pasamos por aca");
-        InstrumentedSutStarter starter = new InstrumentedSutStarter(controller);
+        try{
+            InstrumentedSutStarter starter = new InstrumentedSutStarter(controller);
+            starter.start();
 
-        starter.start();
+        }catch(RuntimeException err){
+            System.out.println("EROR");
+            System.out.println(err.getMessage());
+            System.out.println(err.getStackTrace());
+            throw err;  
+        }
+        
     }
 
     private ConfigurableApplicationContext ctx;
