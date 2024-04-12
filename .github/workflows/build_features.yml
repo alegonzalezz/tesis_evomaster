@@ -74,11 +74,7 @@ jobs:
            PID=$!
 
            sleep 10
-        
-
-           java -jar evomaster.jar
            
-
       - name: Run evomaster
         if: ${{ success() }}
         run:  java -jar ./evomaster.jar
