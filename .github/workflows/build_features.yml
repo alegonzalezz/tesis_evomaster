@@ -44,5 +44,3 @@ jobs:
       - name: Run evomaster
         if: ${{ success() }}
         run:  java -jar ./evomaster.jar
-      
-     
