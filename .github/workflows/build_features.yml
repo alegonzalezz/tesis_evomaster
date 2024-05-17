@@ -69,7 +69,7 @@ jobs:
 
       - name: Build and test with JavaAgent
         run: |
-           mvn clean compile exec:exec -X  | java -jar ./evomaster.jar
+           mvn clean compile exec:exec -X & java -jar ./evomaster.jar
            
       - name: Run evomaster
         if: ${{ success() }}
