@@ -20,82 +20,27 @@ jobs:
         with:
           distribution: 'temurin' 
           java-version: '8'
-      - name: VERSIONS
-        run: |
-          java -version
-          mvn -v 
-
-      - name: Cache Maven dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles( '**/pom.xml' ) }}
-          restore-keys: ${{runner.os}}-maven
-
-      - name: MVN Compile
-        run: |
-          mvn clean compile
-
-  merge-feature-into-main:
-    runs-on: ubuntu-latest
-    needs: build-feature
-    if: ${{ success() }}
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{github.base_url}}
-          fetch-depth: 0
-      - name: Set JDK_JAVA_OPTIONS
-        run: echo "export JDK_JAVA_OPTIONS=\"-Djdk.attach.allowAttachSelf=true\"" >> $GITHUB_ENV
-        
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin' 
-          java-version: '8'
-
-          
-      - name: VERSIONS
-        run: |
-          java -version
-          mvn -v 
-          
-      
+                
       - name: permisos evo master
         run: chmod +rx evomaster.jar
 
       - name: Build and test with JavaAgent
         run: |
-           mvn clean compile exec:exec -X &
+           mvn clean compile exec:exec -X & 
            
            PID=$!
 
            sleep 10
            
+      - name: Obtener una configuración aleatoria
+        id: obtener-configuracion
+        run: |
+          CONFIGURACION=$(shuf -n 1 .prueba)
+          echo "Configuración seleccionada: $CONFIGURACION"
+          echo "::set-output name=configuracion::$CONFIGURACION"
+
       - name: Run evomaster
         if: ${{ success() }}
-        run:  java -jar ./evomaster.jar
+        run:  java -jar ./evomaster.jar  --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60 ${{ steps.obtener-configuracion.outputs.configuracion }}
       
-      - name: Merge to Main
-        if: ${{ success() }}
-
-        run: |
-          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
-          git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
-          
-          git add .
-          git commit -m "Committing evomaster tests"
-          git fetch origin ${{ github.event.pull_request.head.ref }}:${{ github.event.pull_request.head.ref }}
-         
-          git merge --no-ff --verbose origin/${{ github.event.pull_request.head.ref }} -m 'Merge pull request -${{github.event.number}}'
-
-
-      - name: Push changes after merge
-        if: ${{success()}}
-        uses: ad-m/github-push-action@master
-        with: 
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          branch: ${{github.base_url}} 
+     
