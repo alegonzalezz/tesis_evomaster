@@ -1,0 +1,4 @@
+--feedbackDirectedSampling LAST --maxSqlInitActionsPerMissingData 5 --probOfApplySQLActionToCreateResources 0.5 --probOfRandomSampling 0.5  --focusedSearchActivationTime 0.5 --baseTaintAnalysisProbability 0.9
+--feedbackDirectedSampling NONE --maxSqlInitActionsPerMissingData 5 --probOfApplySQLActionToCreateResources 0.5 --probOfRandomSampling 0.5  --focusedSearchActivationTime 0.5 --baseTaintAnalysisProbability 0.9
+--feedbackDirectedSampling LAST --maxSqlInitActionsPerMissingData 5 --probOfApplySQLActionToCreateResources 0.5 --probOfRandomSampling 0.5  --focusedSearchActivationTime 0.5 --baseTaintAnalysisProbability 0.7
+--feedbackDirectedSampling LAST --maxSqlInitActionsPerMissingData 5 --probOfApplySQLActionToCreateResources 0.5 --probOfRandomSampling 0.5  --focusedSearchActivationTime 0.6 --baseTaintAnalysisProbability 0.9
