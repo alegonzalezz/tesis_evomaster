@@ -35,12 +35,32 @@ jobs:
       - name: Obtener una configuración aleatoria
         id: obtener-configuracion
         run: |
-          CONFIGURACION=$(shuf -n 1 .prueba)
+          CONFIGURACION=$(shuf -n 1 .feedbackDirectedSampling)
           echo "Configuración seleccionada: $CONFIGURACION"
-          echo "::set-output name=configuracion::$CONFIGURACION"
+          echo "::set-output name=feedbackDirectedSampling::$CONFIGURACION"
 
+          CONFIGURACION=$(shuf -n 1 .probOfApplySQLActionToCreateResources)
+          echo "Configuración seleccionada: $CONFIGURACION"
+          echo "::set-output name=probOfApplySQLActionToCreateResources::$CONFIGURACION"
+          
+          CONFIGURACION=$(shuf -n 1 .probOfRandomSampling)
+          echo "Configuración seleccionada: $CONFIGURACION"
+          echo "::set-output name=probOfRandomSampling::$CONFIGURACION"
+          
+          CONFIGURACION=$(shuf -n 1 .baseTaintAnalysisProbability)
+          echo "Configuración seleccionada: $CONFIGURACION"
+          echo "::set-output name=baseTaintAnalysisProbability::$CONFIGURACION"
+
+          CONFIGURACION=$(shuf -n 1 .focusedSearchActivationTime)
+          echo "Configuración seleccionada: $CONFIGURACION"
+          echo "::set-output name=focusedSearchActivationTime::$CONFIGURACION"
       - name: Run evomaster
         if: ${{ success() }}
-        run:  java -jar ./evomaster.jar  --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60 ${{ steps.obtener-configuracion.outputs.configuracion }}
+        ##run:  java -jar ./evomaster.jar  --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60 ${{ steps.obtener-configuracion.outputs.configuracion }}
+        echo feedbackDirectedSampling ${{ steps.obtener-configuracion.outputs.feedbackDirectedSampling }}
+        echo probOfApplySQLActionToCreateResources ${{ steps.obtener-configuracion.outputs.probOfApplySQLActionToCreateResources }}
+        echo probOfRandomSampling ${{ steps.obtener-configuracion.outputs.probOfRandomSampling }}
+        echo baseTaintAnalysisProbability ${{ steps.obtener-configuracion.outputs.baseTaintAnalysisProbability }}
+        echo focusedSearchActivationTime ${{ steps.obtener-configuracion.outputs.focusedSearchActivationTime }}
       
      
