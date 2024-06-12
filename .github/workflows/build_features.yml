@@ -56,11 +56,12 @@ jobs:
           echo "::set-output name=focusedSearchActivationTime::$CONFIGURACION"
       - name: Run evomaster
         if: ${{ success() }}
-        ##run:  java -jar ./evomaster.jar  --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60 ${{ steps.obtener-configuracion.outputs.configuracion }}
-        echo feedbackDirectedSampling ${{ steps.obtener-configuracion.outputs.feedbackDirectedSampling }}
-        echo probOfApplySQLActionToCreateResources ${{ steps.obtener-configuracion.outputs.probOfApplySQLActionToCreateResources }}
-        echo probOfRandomSampling ${{ steps.obtener-configuracion.outputs.probOfRandomSampling }}
-        echo baseTaintAnalysisProbability ${{ steps.obtener-configuracion.outputs.baseTaintAnalysisProbability }}
-        echo focusedSearchActivationTime ${{ steps.obtener-configuracion.outputs.focusedSearchActivationTime }}
+        run: |
+          echo "feedbackDirectedSampling ${{ steps.obtener-configuracion.outputs.feedbackDirectedSampling }}"
+          echo "probOfApplySQLActionToCreateResources ${{ steps.obtener-configuracion.outputs.probOfApplySQLActionToCreateResources }}"
+          echo "probOfRandomSampling ${{ steps.obtener-configuracion.outputs.probOfRandomSampling }}"
+          echo "baseTaintAnalysisProbability ${{ steps.obtener-configuracion.outputs.baseTaintAnalysisProbability }}"
+          echo "focusedSearchActivationTime ${{ steps.obtener-configuracion.outputs.focusedSearchActivationTime }}"
+      ## run:  java -jar ./evomaster.jar  --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60 ${{ steps.obtener-configuracion.outputs.configuracion }}
       
      
