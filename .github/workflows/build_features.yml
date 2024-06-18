@@ -33,4 +33,4 @@ jobs:
            sleep 10
       
       - name: Run Action 2
-        uses: alegonzalezz/evomaste_script@v1.0.0
+        uses: alegonzalezz/evomaste_script@v1.0.2
