@@ -21,9 +21,6 @@ jobs:
           distribution: 'temurin' 
           java-version: '8'
                 
-      - name: permisos evo master
-        run: chmod +rx evomaster.jar
-
       - name: Build and test with JavaAgent
         run: |
            mvn clean compile exec:exec -X & 
