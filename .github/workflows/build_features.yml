@@ -43,4 +43,5 @@ jobs:
           echo "3) probOfRandomSampling: ${{ steps.run-migrated-script.outputs.probOfRandomSampling }}"
           echo "4) baseTaintAnalysisProbability: ${{ steps.run-migrated-script.outputs.baseTaintAnalysisProbability }}"
           echo "5) focusedSearchActivationTime: ${{ steps.run-migrated-script.outputs.focusedSearchActivationTime }}"
+          echo "5) focusedSearchActivationTime: ${{ steps.run-migrated-script.outputs.focusedSearchActivationTime }}"
 
