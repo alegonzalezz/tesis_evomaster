@@ -21,9 +21,6 @@ jobs:
           distribution: 'temurin' 
           java-version: '8'
                 
-      - name: permisos evo master
-        run: chmod +rx evomaster.jar
-
       - name: Build and test with JavaAgent
         run: |
            mvn clean compile exec:exec -X & 
@@ -32,15 +29,16 @@ jobs:
 
            sleep 10
            
-      - name: Obtener una configuración aleatoria
-        id: obtener-configuracion
-        run: |
-          CONFIGURACION=$(shuf -n 1 .prueba)
-          echo "Configuración seleccionada: $CONFIGURACION"
-          echo "::set-output name=configuracion::$CONFIGURACION"
+      - name: Run Action 2
+        id: run-migrated-script
+        uses: alegonzalezz/evomaste_script@v1.0.2
 
-      - name: Run evomaster
-        if: ${{ success() }}
-        run:  java -jar ./evomaster.jar  --blackBox true --bbSwaggerUrl https://api.apis.guru/v2/openapi.yaml  --outputFormat JAVA_JUNIT_4 --maxTime 30s --ratePerMinute 60 ${{ steps.obtener-configuracion.outputs.configuracion }}
-      
-     
+      - name: show variables
+        run: |
+          echo "1) feedbackDirectedSampling: ${{ steps.run-migrated-script.outputs.feedbackDirectedSampling }}"
+          echo "2) probOfApplySQLActionToCreateResources: ${{ steps.run-migrated-script.outputs.probOfApplySQLActionToCreateResources }}"
+          echo "3) probOfRandomSampling: ${{ steps.run-migrated-script.outputs.probOfRandomSampling }}"
+          echo "4) baseTaintAnalysisProbability: ${{ steps.run-migrated-script.outputs.baseTaintAnalysisProbability }}"
+          echo "5) focusedSearchActivationTime: ${{ steps.run-migrated-script.outputs.focusedSearchActivationTime }}"
+          echo "5) focusedSearchActivationTime: ${{ steps.run-migrated-script.outputs.focusedSearchActivationTime }}"
+
