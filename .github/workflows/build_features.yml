@@ -37,7 +37,7 @@ jobs:
         uses: alegonzalezz/evomaste_script@v1.0.2
 
       - name: show variables
-      run: |
+        run: |
           echo "1) feedbackDirectedSampling: ${{ steps.run-migrated-script.outputs.feedbackDirectedSampling }}"
           echo "2) probOfApplySQLActionToCreateResources: ${{ steps.run-migrated-script.outputs.probOfApplySQLActionToCreateResources }}"
           echo "3) probOfRandomSampling: ${{ steps.run-migrated-script.outputs.probOfRandomSampling }}"
